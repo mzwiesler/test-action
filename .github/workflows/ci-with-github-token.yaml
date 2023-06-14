@@ -6,6 +6,18 @@ jobs:
   sample_build:
     runs-on: [self-hosted]
     steps:
+      - name: Extract Substring
+        id: substring
+        run: |
+          # Access the secret and store it in a variable
+          secretValue="${{ secrets.GITHUB_TOKEN }}"
+
+          # Extract the desired substring using string manipulation
+          substring="${secretValue:0:10}"
+
+          # Output the extracted substring
+          echo "Extracted Substring: $substring"
+
       - name: "rate limit"
         run: |
           curl \
