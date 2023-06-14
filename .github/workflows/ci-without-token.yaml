@@ -1,0 +1,27 @@
+name: CI Without Token
+
+on: [workflow_dispatch]
+
+jobs:
+  sample_build:
+    runs-on: azure-runners
+    steps:
+      - name: "rate limit"
+        run: |
+          curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/rate_limit
+
+      - name: Clear the tool cache
+        run: rm -rf /Users/runner/hostedtoolcache/Python/
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9.12
+
+      - name: "rate limit"
+        run: |
+          curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/rate_limit

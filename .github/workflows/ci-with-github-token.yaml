@@ -1,0 +1,34 @@
+name: CI With GitHub Token
+
+on: [workflow_dispatch]
+
+jobs:
+  sample_build:
+    runs-on: [self-hosted]
+    steps:
+      - name: "rate limit"
+        run: |
+          curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: $TOKEN" \
+            https://api.github.com/rate_limit
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clear the tool cache
+        run: rm -rf /Users/runner/hostedtoolcache/Python/
+
+      - name: Set up Python
+        uses: actions/setup-python@v4.6.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          python-version: 3.9.12
+
+      - name: "rate limit"
+        run: |
+          curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: $TOKEN" \
+            https://api.github.com/rate_limit
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
