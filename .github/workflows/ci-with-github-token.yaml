@@ -22,7 +22,7 @@ jobs:
         run: |
           curl \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: $TOKEN" \
+            -H "Authorization: token $TOKEN" \
             https://api.github.com/rate_limit
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
